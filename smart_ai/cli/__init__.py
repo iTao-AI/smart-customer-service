@@ -29,8 +29,7 @@ class SmartAICLI(click.Group):
         """格式化帮助信息。"""
         formatter.write_paragraph()
         formatter.write_text(
-            "SmartAI AI - LLM驱动的对话系统 CLI\n"
-            "LLM驱动的对话系统，用于学习和教学。"
+            "SmartAI AI - LLM驱动的对话系统 CLI"
         )
         formatter.write_paragraph()
         super().format_help(ctx, formatter)

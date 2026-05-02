@@ -83,15 +83,9 @@ class ProcessResult:
 
 
 class CommandProcessor:
-    """命令处理器。
-    
-    负责执行命令并更新对话状态。这是对话理解模块的核心组件之一。
-    
-    处理流程：
-    1. 接收命令列表
-    2. 按顺序执行每个命令
-    3. 更新对话状态（Tracker, Stack）
-    4. 返回产生的事件和下一步动作
+    """Command processor.
+
+    Executes commands and updates dialogue state.
     """
     
     def __init__(

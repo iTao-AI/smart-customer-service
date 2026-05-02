@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-smart_ai - LLM驱动的对话系统
+smart_ai - LLM-driven dialogue system.
 
 基于LLM驱动的对话架构的精简LLM驱动的对话系统。
-本项目适合教学和理解对话系统核心原理。
 
 核心模块：
 - agent: 对话代理，基于LangGraph实现图式消息处理流程

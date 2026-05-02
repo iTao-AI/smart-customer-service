@@ -6,44 +6,10 @@
 
 ## Command 与 Action 的职责边界
 
-在本架构中，Command 和 Action 有明确的职责分工：
+- **Command**: 由 LLM 根据用户输入生成，负责解析用户意图、更新对话状态
+- **Action**: 由 Policy 根据栈帧状态选择，负责执行具体操作
 
-### Command（命令）
-- **来源**：由 LLM 根据用户输入生成
-- **职责**：解析用户意图，更新对话状态
-- **执行方式**：通过 CommandProcessor 执行
-- **输出**：直接修改 Tracker 状态（如压入栈帧、设置槽位）
-
-### Action（动作）
-- **来源**：由 Policy 根据栈帧状态选择
-- **职责**：执行具体操作，压入栈帧
-- **执行方式**：通过 Agent 执行
-- **输出**：返回 ActionResult（事件、响应）
-
-### 处理流程
-1. 用户输入 → LLM 生成 Command
-2. CommandProcessor 执行 Command → 更新 Tracker（可能压入栈帧）
-3. Policy 检测栈帧 → 选择 Action
-4. Agent 执行 Action → 生成响应
-
-### 栈帧化 Action
-部分 Action 采用"栈帧化"设计：
-- Action 只压入栈帧（如 SearchStackFrame）
-- Policy 检测栈帧并执行实际操作（如检索）
-- 这种设计实现了 Action 与响应生成的解耦
-
-### 示例
-```
-用户: "帮我查一下订单"
-↓
-LLM 生成: KnowledgeAnswerCommand
-↓
-CommandProcessor: 确定 next_action = action_trigger_search
-↓
-ActionTriggerSearch: 压入 SearchStackFrame
-↓
-EnterpriseSearchPolicy: 检测到 SearchStackFrame，执行检索，生成响应
-```
+处理流程：用户输入 -> LLM 生成 Command -> CommandProcessor 执行 -> Policy 检测栈帧 -> 选择 Action -> Agent 执行
 """
 
 from __future__ import annotations
@@ -100,15 +66,9 @@ def get_all_command_classes() -> Dict[str, Type["Command"]]:
 
 @dataclass
 class Command(ABC):
-    """命令基类。
-    
-    命令是本架构中的核心概念，表示对话系统可以执行的原子操作。
-    所有具体的命令类型都应继承此基类。
-    
-    命令的生命周期：
-    1. LLM生成器根据用户输入生成命令文本
-    2. 命令解析器将文本解析为命令对象
-    3. 命令处理器执行命令并更新对话状态
+    """Command base class.
+
+    All concrete command types should inherit from this class.
     """
     
     @classmethod
