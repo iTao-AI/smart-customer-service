@@ -1,3 +1,5 @@
+[English](./README.md) | [中文](./README_zh.md)
+
 # Smart Customer Service
 
 A production-grade dialogue system framework for e-commerce customer service, built on LangGraph + LangChain. Supports YAML-defined conversation flows, GraphRAG knowledge base retrieval, and multi-channel access (REST API, WebSocket, CLI).

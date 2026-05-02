@@ -1,3 +1,5 @@
+[English](./README.md) | [中文](./README_zh.md)
+
 # Smart Customer Service
 
 一个基于 LangGraph + LangChain 的生产级电商客服对话系统框架。支持 YAML 定义的对话流程、GraphRAG 知识库检索和多渠道接入（REST API、WebSocket、CLI）。
